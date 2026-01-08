@@ -330,7 +330,7 @@ export default function TrustServiceAdminPage() {
       alert(error)
       return
     }
-    await saveData()
+    handleLocalSave()
     setIsDirty(false)
   }
 

@@ -105,7 +105,7 @@ export default function CTAPage() {
     try {
       setError(null)
       setSaving(true)
-      await saveData()
+      saveData()
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Хадгалахад алдаа гарлаа'
       setError(message)

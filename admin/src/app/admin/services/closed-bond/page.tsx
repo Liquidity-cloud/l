@@ -325,7 +325,7 @@ export default function ClosedBondServiceAdminPage() {
       alert(error)
       return
     }
-    await saveData()
+    handleLocalSave()
     setIsDirty(false)
   }
 

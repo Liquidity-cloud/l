@@ -339,7 +339,7 @@ export default function HbutsServiceAdminPage() {
       alert(error)
       return
     }
-    await saveData()
+    handleLocalSave()
     setIsDirty(false)
   }
 
