@@ -348,7 +348,7 @@ export default function OpenBondServiceAdminPage() {
       alert(error)
       return
     }
-    await saveData('manual')
+    await saveData()
     setIsDirty(false)
   }
 

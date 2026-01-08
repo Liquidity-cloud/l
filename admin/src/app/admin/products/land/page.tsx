@@ -356,7 +356,7 @@ export default function LandCollateralLoanAdminPage() {
       return
     }
     
-    await saveData('manual')
+    await saveData()
     setIsDirty(false)
   }
 
@@ -367,7 +367,7 @@ export default function LandCollateralLoanAdminPage() {
       return
     }
 
-    await saveData('manual')
+    await saveData()
 
     try {
       const res = await fetch('/api/admin/products/publish', {
