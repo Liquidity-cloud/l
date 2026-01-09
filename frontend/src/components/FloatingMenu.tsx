@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useState, useEffect, useRef } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
+import ChatWidget from './ChatWidget'
 
 const socials = [
   { name: 'Facebook', href: 'https://facebook.com', icon: (
@@ -19,6 +20,7 @@ const socials = [
 export default function FloatingMenu() {
   const { language, t } = useLanguage()
   const [activeMenu, setActiveMenu] = useState<string | null>(null)
+  const [chatOpen, setChatOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
 
   // Close menu when clicking outside
@@ -37,8 +39,11 @@ export default function FloatingMenu() {
   }
 
   return (
-    <div ref={menuRef} className="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-50">
-      <div className="flex items-center gap-2 sm:gap-3">
+    <div className="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center gap-3">
+      {/* AI Chatbot Widget */}
+      <ChatWidget isOpen={chatOpen} onClose={() => setChatOpen(false)} />
+
+      <div ref={menuRef} className="flex items-center gap-2 sm:gap-3">
         {/* Зээл - with dropdown */}
         <div className="relative">
           <button 
@@ -129,6 +134,39 @@ export default function FloatingMenu() {
             </div>
           </div>
         </div>
+
+        {/* AI Chatbot Button with Avatar */}
+        <button 
+          onClick={() => setChatOpen(!chatOpen)}
+          className="w-16 h-16 sm:w-20 sm:h-20 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:scale-110 flex items-center justify-center"
+          title={t('AI Туслах', 'AI Assistant')}
+        >
+          <svg width="80" height="80" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" fill="none" className="w-16 h-16 sm:w-20 sm:h-20">
+            <defs>
+              <linearGradient id="headGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#EAF2FF"/>
+                <stop offset="100%" stopColor="#93C5FD"/>
+              </linearGradient>
+              <filter id="softShadow" x="-35%" y="-35%" width="170%" height="170%">
+                <feDropShadow dx="0" dy="6" stdDeviation="10" floodColor="#1E40AF" floodOpacity="0.28"/>
+              </filter>
+            </defs>
+            <g>
+              <animateTransform attributeName="transform" type="translate" values="0 0; 0 -6; 0 0" dur="2.4s" repeatCount="indefinite"/>
+              <ellipse cx="160" cy="160" rx="110" ry="100" fill="url(#headGrad)" filter="url(#softShadow)"/>
+              <ellipse cx="160" cy="165" rx="70" ry="52" fill="#020617"/>
+              <ellipse cx="138" cy="160" rx="8" ry="10" fill="#38BDF8">
+                <animate attributeName="ry" values="10;10;2;10" keyTimes="0;0.6;0.65;1" dur="4s" repeatCount="indefinite"/>
+              </ellipse>
+              <ellipse cx="182" cy="160" rx="8" ry="10" fill="#38BDF8">
+                <animate attributeName="ry" values="10;10;2;10" keyTimes="0;0.6;0.65;1" dur="4s" repeatCount="indefinite"/>
+              </ellipse>
+              <ellipse cx="122" cy="178" rx="8" ry="5" fill="#F472B6" opacity="0.9"/>
+              <ellipse cx="198" cy="178" rx="8" ry="5" fill="#F472B6" opacity="0.9"/>
+              <path d="M140 176 Q160 192 180 176" stroke="#38BDF8" strokeWidth="4" strokeLinecap="round" fill="none"/>
+            </g>
+          </svg>
+        </button>
       </div>
     </div>
   )
